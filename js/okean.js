@@ -8,7 +8,7 @@
   const lines = [...document.querySelectorAll('.ln')];
   const MEDIA = window.MEDIA || [], ATLAS = window.ATLAS || {};
   const DIR = 'assets/m/';
-  const V = 1;
+  const V = 2;
 
   // the song: 67.4 bpm, first downbeat at B0
   const STAR = window.STAR || '';            // the favourite clip (set by tools/media.py); '' = none
@@ -88,7 +88,7 @@
   function build() {
     const r = rng(20261113);
     const HW = Math.min(W * .92, H * .52);
-    const hc = heartCells(HW, Math.max(MEDIA.length, 36));
+    const hc = heartCells(HW, Math.max(MEDIA.length, 75)); // 75 = the 13-column grid: the cleanest heart, tapering to a single tip
     const n = hc.cells.length;
     const imgs = MEDIA.filter(m => m.k === 'i');
     const list = MEDIA.slice();

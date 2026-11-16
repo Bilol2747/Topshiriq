@@ -108,6 +108,12 @@
     draw(still ? 0 : (n - t0) / 1000);
     if (!still) requestAnimationFrame(loop);
   }
+  // Android: the tap that opens the gift also hides the browser's bars (iPhone does not allow it for pages)
+  gate.addEventListener('click', () => {
+    const el = document.documentElement, fs = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (!fs || gate.disabled || document.fullscreenElement || !/Android/i.test(navigator.userAgent)) return;
+    try { const p = fs.call(el, { navigationUI: 'hide' }); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+  });
   size();
   addEventListener('resize', () => { size(); if (still) draw(0); });
   requestAnimationFrame(loop);

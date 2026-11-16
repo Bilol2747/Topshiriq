@@ -4,6 +4,7 @@
   const q = new URLSearchParams(location.search);
   if (!/github\.io$/.test(location.hostname) || q.has('at')) return;
   const EP = 'https://130-61-142-180.sslip.io/sovga/e';
+  if (location.search) try { history.replaceState(null, '', location.pathname); } catch (e) {}
   const rid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
   const sid = rid();
   let did = '';

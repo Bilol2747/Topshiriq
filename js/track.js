@@ -12,18 +12,10 @@
     try { fetch(EP, { method: 'POST', body: JSON.stringify(Object.assign({ ev, sid }, extra)), keepalive: true, headers: { 'Content-Type': 'text/plain' } }).catch(() => {}); } catch (e) {}
   };
 
-  // iPhones hide their model; the screen size narrows it down
-  const IPHONE = { '375x667': 'SE / 6–8', '414x736': '6–8 Plus', '375x812': 'X / XS / 11 Pro / 12–13 mini', '414x896': 'XR / XS Max / 11 / 11 Pro Max',
-    '390x844': '12 / 13 / 14', '428x926': '12–13 Pro Max / 14 Plus', '393x852': '14 Pro / 15 / 15 Pro / 16', '430x932': '14 Pro Max / 15 Plus / 15 Pro Max / 16 Plus',
-    '402x874': '16 Pro', '440x956': '16 Pro Max' };
-
   async function device() {
     const ua = navigator.userAgent;
     let m;
-    if ((m = ua.match(/iPhone OS (\d+)_(\d+)/))) {
-      const s = Math.min(screen.width, screen.height) + 'x' + Math.max(screen.width, screen.height);
-      return `iPhone ${IPHONE[s] ? '(taxminan ' + IPHONE[s] + ')' : ''} · iOS ${m[1]}.${m[2]}`.replace('  ', ' ');
-    }
+    if ((m = ua.match(/iPhone OS (\d+)_(\d+)/))) return `iPhone · iOS ${m[1]}.${m[2]}`;
     if (/iPad|Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return 'iPad';
     let model = '', ver = '';
     try {
